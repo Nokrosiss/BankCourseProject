@@ -1,0 +1,63 @@
+﻿@using Web_Application.Controllers.Credit
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model List<Web_Application.Data.Entities.Credit>
+<link rel="stylesheet" href="/css/Other.css">
+@{
+    ViewData["Title"] = "Кредитные запросы";
+}
+
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="text-center">@ViewData["Title"]</h2>
+        </div>
+        <div class="card-body">
+            @if (Model != null && Model.Any())
+            {
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Уникальный хеш клиента</th>
+                                <th>Дата взятия кредита</th>
+                                <th>Актуальная сумма</th>
+                                <th>Статус кредита</th>
+                                <th>Изменить статус кредита</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var credit in Model)
+                            {
+                                <tr>
+                                    <td>@credit.UserId</td>
+                                    <td>@credit.DateOfCreation.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                                    <td>@credit.Amount</td>
+                                    <td>@credit.Status</td>
+                                    <td>
+                                        <form asp-action="ChangeCreditStatus" asp-controller="Credit" method="post">
+                                            <input type="hidden" name="creditId" value="@credit.Id" />
+                                            <div class="form-group">
+                                                <select name="newStatus" class="form-control">
+                                                    @foreach (var status in CreditController.StatusMap)
+                                                    {
+                                                        <option value="@status.Key.ToString()">@status.Value</option>
+                                                    }
+                                                </select>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Изменить статус</button>
+                                        </form>
+                                    </td>
+                                    <!-- Add more columns as needed -->
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <p>Запросов на кредит нет.</p>
+            }
+        </div>
+    </div>
+</div>

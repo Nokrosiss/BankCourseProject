@@ -1,0 +1,128 @@
+﻿@using Web_Application.Config
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<!-- Add this link to your HTML head section, after the Bootstrap CSS link -->
+<link rel="stylesheet" href="/css/navbar.css">
+
+
+<!-- 
+Navigation Bar
+    
+This navigation bar is a part of the layout view and provides links to various sections
+of the application. 
+
+Notice : It includes conditional rendering based on the user's authentication status. >> Authorization <<
+-->
+
+<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <div class="container-fluid">
+        <!-- Brand logo and link to the Home/Index action -->
+             <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                       <img src="/src/MMM1.jpg" alt="MMM Logo" height="60" class="d-inline-block align-top rounded-circle">
+                   </a>
+
+        <!-- Navbar toggle button for smaller screens -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navbar content with flex layout -->
+        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+            <!-- Left-aligned navigation links with dropdowns -->
+            <ul class="navbar-nav flex-grow-1">
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Главная</a>
+                </li>
+                @if (User.Identity is { IsAuthenticated: true } )
+                {
+                    if (User.IsInRole("Администратор"))
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-dark" href="#" id="adminDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Администраторам
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="adminDropdown">
+                                <a class="dropdown-item" asp-area="" asp-controller="Role" asp-action="ManageRoles">Роли</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="User" asp-action="ManageUsers">Управление пользователями</a>
+                            </div>
+                        </li>
+                    }
+                    if (User.IsInRole("Банкир")||User.IsInRole("Администратор"))
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-dark" href="#" id="adminDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Банкирам
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="adminDropdown">
+                                <a class="dropdown-item" asp-area="" asp-controller="Credit" asp-action="CreditRequests">Кредитные запросы</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="User" asp-action="ManageUsers">Управление пользователями</a>
+                            </div>
+                        </li>
+                    }
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-dark" href="#" id="creditDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Кредиты
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="creditDropdown">
+                            <a class="dropdown-item" asp-area="" asp-controller="Credit" asp-action="CreateCredit">Взять кредит</a>
+                            <a class="dropdown-item" asp-area="" asp-controller="Credit" asp-action="CreditHistory">Кредитная история</a>
+                            
+                        </div>
+                    </li>
+                    if (User.IsInRole("Менеджер")||User.IsInRole("Администратор"))
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-dark" href="#" id="adminDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Менеджерам
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="adminDropdown">
+                                 <a class="dropdown-item" asp-area="" asp-controller="Credit" asp-action="CreditRequests">Кредитные запросы</a>
+                            </div>
+                        </li>
+                    }
+                    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-dark" href="#" id="paymentDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Платежи
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="paymentDropdown">
+                            <a class="dropdown-item" asp-area="" asp-controller="Payment" asp-action="PaymentsHistory">История платежей</a>
+                            <a class="dropdown-item" asp-area="" asp-controller="Payment" asp-action="CreatePayment">Добавить платеж</a>
+                        </div>
+                    </li>
+                }
+            </ul>
+           
+            <!-- Right-aligned navigation links with conditional rendering based on authentication -->
+           <ul class="navbar-nav ml-auto">
+               @if (User.Identity is {IsAuthenticated: true })
+               {
+                   <!-- Display welcome message and profile-related links for authenticated users -->
+                   <li class="nav-item">
+                       <a class="nav-link text-dark">Здраствуйте, @User.Identity.Name</a>
+                   </li>
+                   <li class="nav-item">
+                       <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Profile">Профиль</a>
+                   </li>
+                   <li class="nav-item">
+                       <!-- Logout form for authenticated users -->
+                       <form class="form-inline" asp-area="" asp-controller="Account" asp-action="Logout" method="post">
+                           <button type="submit" class="btn btn-link text-dark">Выйти из аккаунта</button>
+                       </form>
+                   </li>
+               }
+               else
+               {
+                   <!-- Display login and register links for non-authenticated users -->
+                   <li class="nav-item">
+                       <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Войти</a>
+                   </li>
+                   <li class="nav-item">
+                       <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Зарегестрироваться</a>
+                   </li>
+               }
+           </ul>
+
+        </div>
+    </div>
+</nav>

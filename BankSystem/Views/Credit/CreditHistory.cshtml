@@ -1,0 +1,47 @@
+﻿@model List<Web_Application.Data.Entities.Credit>
+<link rel="stylesheet" href="/css/Other.css">
+@{
+    ViewData["Title"] = "Кредитная история";
+}
+
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="text-center">@ViewData["Title"]</h2>
+        </div>
+        <div class="card-body">
+            @if (Model != null && Model.Any())
+            {
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Дата взятия кредита</th>
+                            <th>Сумма кредита</th>
+                            <th>Актуальная сумма</th>
+                            <th>Статус кредита</th>
+                            <!-- Add more columns as needed -->
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach (var credit in Model)
+                        {
+                            <tr>
+                                <td>@credit.DateOfCreation.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                                <td>@credit.StartingAmount</td>
+                                <td>@credit.Amount</td>
+                                <td>@credit.Status</td>
+                                <!-- Add more columns as needed -->
+                            </tr>
+                        }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <p>No credit history available.</p>
+            }
+        </div>
+    </div>
+</div>

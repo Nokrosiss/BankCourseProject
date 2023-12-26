@@ -1,0 +1,28 @@
+﻿<!--
+_ValidationScriptsPartial.cshtml
+
+This partial view includes references to the jQuery Validation and jQuery Unobtrusive Validation scripts.
+These scripts are essential for client-side validation in ASP.NET Core applications.
+
+Reference:
+- jQuery Validation: https://jqueryvalidation.org/
+- jQuery Unobtrusive Validation: https://github.com/aspnet/jquery-validation-unobtrusive
+
+Note:
+- The jQuery Validation script provides functionality for validating form inputs.
+- The jQuery Unobtrusive Validation script enhances integration with ASP.NET MVC's validation attributes.
+- Including these scripts is crucial for enabling client-side validation and improving the user experience.
+
+Usage:
+- Include this partial view in your main layout or individual views where client-side validation is required.
+
+Example:
+<partial name="_ValidationScriptsPartial" />
+
+Make sure to include these scripts after jQuery is loaded on the page.
+
+Reference: https://docs.microsoft.com/en-us/aspnet/core/mvc/views/layout?view=aspnetcore-6.0
+-->
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>

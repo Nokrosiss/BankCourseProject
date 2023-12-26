@@ -1,0 +1,53 @@
+﻿@model List<Web_Application.Data.Entities.Payment>
+<link rel="stylesheet" href="/css/Other.css">
+@{
+    ViewData["Title"] = "История платежей";
+}
+
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="text-center">@ViewData["Title"]</h2>
+        </div>
+        <div class="card-body">
+            @if (Model != null && Model.Any())
+            {
+                <div class="table-responsive">
+                    <table id="paymentsTable" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Номер кредита</th>
+                                <th>Дата платежа по кредиту</th>
+                                <th>Сумма платежа</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var payment in Model)
+                            {
+                                <tr>
+                                    <td>@payment.CreditId</td>
+                                    <td>@payment.Date.ToString("yyyy-MM-dd")</td>
+                                    <td>@payment.Amount</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Initialize DataTables -->
+                <script>
+                    $(document).ready(function () {
+                        $('#paymentsTable').DataTable({
+                            order: [[1, 'asc']], // Sort by the second column (Payment Date) in ascending order
+                            paging: false // Disable pagination for a simple example
+                        });
+                    });
+                </script>
+            }
+            else
+            {
+                <p>Платежи отсутствуют.</p>
+            }
+        </div>
+    </div>
+</div>

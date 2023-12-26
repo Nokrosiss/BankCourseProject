@@ -1,0 +1,32 @@
+﻿/* custom.css */
+
+/* Navbar styling */
+.li{
+    color: #fff !important; /* White text for links */
+    font-family: 'Roboto', sans-serif;
+}
+/* Navbar brand styling */
+.navbar-brand img {
+    filter: brightness(80%); /* Adjust brightness for a subtle effect */
+}
+
+/* Navbar link styling */
+.navbar-nav .nav-link {
+    color: #fff !important; /* White text for links */
+    font-family: 'Roboto', sans-serif; /* Use the specified Google Font */
+}
+
+/* Welcome message styling */
+.navbar-nav .nav-link.text-dark {
+    color: #000 !important; /* Dark text for the welcome message */
+}
+
+/* Dropdown menu styling */
+.navbar-nav .dropdown-menu {
+    background-color: #4CAF50; /* Slight green color for dropdown menu */
+}
+
+/* Dropdown item styling */
+.navbar-nav .dropdown-item {
+    color: #fff !important; /* White text for dropdown items */
+}

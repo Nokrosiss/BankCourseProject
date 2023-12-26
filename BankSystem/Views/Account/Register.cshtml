@@ -1,0 +1,35 @@
+﻿@model Web_Application.Models.Account.RegisterViewModel
+<link rel="stylesheet" href="/css/Other.css">
+@{
+    ViewData["Title"] = "Регистрация";
+}
+
+ <div class="col-md-6 offset-md-3">
+     <h1 class="text-center">@ViewData["Title"]</h1>
+     <p class="text-center">Заполните чтобы создать аккаунт</p>
+     
+     <form method="post">
+         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+     
+         <div class="form-group mb-3">
+             <label for="Email">Email</label>
+             <input asp-for="Email" class="form-control mt-1" />
+             <span asp-validation-for="Email" class="text-danger mt-1"></span>
+         </div>
+     
+         <div class="form-group mb-3">
+             <label for="Password">Password</label>
+             <input asp-for="Password" class="form-control mt-1" />
+             <span asp-validation-for="Password" class="text-danger mt-1"></span>
+         </div>
+     
+         <div class="form-group mb-3">
+             <label for="ConfirmPassword">Confirm Password</label>
+             <input asp-for="ConfirmPassword" class="form-control mt-1" />
+             <span asp-validation-for="ConfirmPassword" class="text-danger mt-1"></span>
+         </div>
+     
+         <button type="submit" class="btn btn-primary mt-3 mb-3">Зарегестрироваться</button>
+     </form>
+
+ </div>

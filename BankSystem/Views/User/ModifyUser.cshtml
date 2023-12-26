@@ -1,0 +1,92 @@
+﻿@model Web_Application.Models.User.ModifyUserViewModel
+
+@{
+    ViewData["Title"] = "Изменить пользователя";
+}
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="UpdateUser" method="post">
+    <input type="hidden" asp-for="UserId" />
+
+    <div class="form-group">
+        <label asp-for="UserName"></label>
+        <input asp-for="UserName" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PhoneNumber"></label>
+        <input asp-for="PhoneNumber" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control" />
+    </div>
+    
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+    </div>
+</form>
+
+<h3>Пользовательские роли</h3>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Название роли</th>
+        <th>Действия</th>
+    </tr>
+    </thead>
+    <tbody>
+    @if (Model.Roles != null && Model.Roles.Any())
+    {
+        @foreach (var role in Model.Roles)
+        {
+            <tr>
+                <td>@role</td>
+                <td>
+                    <form asp-action="RemoveUserRole" method="post">
+                        <input type="hidden" asp-for="UserId" />
+                        <input type="hidden" name="roleName" value="@role" />
+                        <button type="submit" class="btn btn-danger">Удалить</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    }
+    else
+    {
+        <tr>
+            <td colspan="2">Нет доступных ролей</td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+<!-- Button to add roles -->
+<div>
+    <h3>Add Role</h3>
+    <form asp-action="AddUserRole" method="post">
+        <input type="hidden" asp-for="UserId" />
+
+        <div class="form-group">
+            <label for="SelectedRole">Выбрать роль:</label>
+            <select id="SelectedRole" name="SelectedRole" class="form-control">
+                @if (Model.AvailableRoles != null && Model.AvailableRoles.Any())
+                {
+                    @foreach (var availableRole in Model.AvailableRoles)
+                    {
+                        <option value="@availableRole.Name">@availableRole.Name</option>
+                    }
+                }
+                else
+                {
+                    <option value="">Нет доступных ролей</option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-success">Добавить роль</button>
+        </div>
+    </form>
+</div>

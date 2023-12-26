@@ -1,0 +1,19 @@
+﻿body {
+    /* Укажите URL или путь к изображению */
+    background-image: url('/src/Background2.png');
+
+    /* Задайте цвет фона, который будет виден, если изображение не загружено */
+    background-color: #f0f0f0;
+
+    /* Повторение изображения по обоим осям */
+    background-repeat: repeat;
+
+    /* Фиксация фона (не прокручивается вместе с контентом) */
+    background-attachment: fixed;
+
+    /* Центрирование фона */
+    background-position: center;
+
+    /* Растягивание фона на весь экран */
+    background-size: cover;
+}

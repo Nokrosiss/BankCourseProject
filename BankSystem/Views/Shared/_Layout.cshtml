@@ -1,0 +1,45 @@
+﻿@using Web_Application.Config
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <!-- Title dynamically generated -->
+        <title>@ViewData["Title"] - @ProjectInfo.ProjectName</title>
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+        <!-- Site-specific CSS -->
+        <link rel="stylesheet" href="~/css/main.css" asp-append-version="true"/>
+        <!-- Additional styles for this specific application -->
+        <link rel="stylesheet" href="~/Web_Application.styles.css" asp-append-version="true"/>
+        <link rel="icon" href="/src/MMM1.jpg" type="image/x-icon">
+            <link rel="shortcut icon" href="/src/MMM1.jpg" type="image/x-icon">
+    </head>
+<body>
+
+<header>
+    <!-- Render the Navbar partial view -->
+    @await Html.PartialAsync("_Navbar")
+</header>
+
+<main role="main" class="container">
+    <!-- Render the main content of the page -->
+    @RenderBody()
+</main>
+
+<footer>
+    <!-- Render the Footer partial view -->
+    @await Html.PartialAsync("_Footer")
+</footer>
+
+<!-- JavaScript dependencies -->
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Site-specific JavaScript -->
+<script src="~/js/site.js" asp-append-version="true"></script>
+<!-- Render scripts from sections defined in the views -->
+@await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>
